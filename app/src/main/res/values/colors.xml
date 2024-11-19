@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="imdb_yellow">#F5C518</color>
+    <color name="imdb_black">#000000</color>
+</resources>

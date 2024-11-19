@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/categories_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/imdb_yellow"
+        android:elevation="4dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/arrow_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/categorise_tv"
+            android:textColor="@color/imdb_black" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <Button
+        android:id="@+id/news_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/imdb_yellow"
+        android:padding="40dp"
+        android:text="@string/news_btn"
+        android:drawableBottom="@drawable/baseline_calendar_month_24"
+        android:textColor="@color/imdb_black"
+        app:layout_constraintBottom_toTopOf="@id/movies_btn"
+        app:layout_constraintEnd_toStartOf="@id/celebs_btn"
+        app:layout_constraintStart_toStartOf="parent" />
+    <Button
+        android:id="@+id/celebs_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/imdb_yellow"
+        android:padding="40dp"
+        android:text="@string/celebs_btn"
+        android:drawableBottom="@drawable/baseline_diversity_3_24"
+        android:textColor="@color/imdb_black"
+        app:layout_constraintBottom_toTopOf="@id/movies_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/news_btn" />
+
+    <Button
+        android:id="@+id/movies_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/imdb_yellow"
+        android:padding="40dp"
+        android:text="@string/movies_btn"
+        android:drawableBottom="@drawable/baseline_local_movies_24"
+        android:textColor="@color/imdb_black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/news_btn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/shows_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/imdb_yellow"
+        android:padding="40dp"
+        android:text="@string/shows_btn"
+        android:drawableBottom="@drawable/baseline_airplay_24"
+        android:textColor="@color/imdb_black"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/events_btn"
+        app:layout_constraintTop_toBottomOf="@+id/movies_btn" />
+
+    <Button
+        android:id="@+id/events_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/imdb_yellow"
+        android:padding="40dp"
+        android:text="@string/events_btn"
+        android:drawableBottom="@drawable/baseline_emoji_events_24"
+        android:textColor="@color/imdb_black"
+        app:layout_constraintLeft_toRightOf="@+id/shows_btn"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movies_btn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

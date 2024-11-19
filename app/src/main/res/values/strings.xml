@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">IMDB</string>
+    <string name="imdb_tv">IMDB</string>
+    <string name="categorise_tv">Categorise</string>
+    <string name="gender_tv">Gender</string>
+    <string name="password_tv">Password</string>
+    <string name="email_tv">Email</string>
+    <string name="rePassword_tv">Re-enter password</string>
+    <string name="signUp_tv">Sign UP</string>
+    <string name="fullName_tv">Your name</string>
+    <string name="news_btn">News</string>
+    <string name="celebs_btn">Celebs</string>
+    <string name="movies_btn">Movies</string>
+    <string name="shows_btn">Shows</string>
+    <string name="events_btn">Events</string>
+    <string name="profile_btn">Profile</string>
+    <string name="categories_btn">Categories</string>
+    <string name="signIn_btn">Sign In</string>
+    <string name="signUp_btn">Sign Up</string>
+    <string name="new_btn">New</string>
+    <string name="email_et">Email</string>
+    <string name="fullName_et">First and last name</string>
+    <string name="password_et_hint">at least 8 charachters</string>
+    <string name="password_et">Password</string>
+    <string name="male_rbtn">Male</string>
+    <string name="female_rbtn">Female</string>
+    <string name="agree_cb">Agree to Trems</string>
+
+</resources>
