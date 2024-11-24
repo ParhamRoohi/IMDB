@@ -40,23 +40,24 @@ public class SignInActivity extends AppCompatActivity {
         SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         String registeredEmail = prefs.getString("registeredEmail", null);
         String registeredPassword = prefs.getString("registeredPassword", null);
-//        Log.d("SignInActivity", "Email: " + registeredEmail + " Password: " + registeredPassword);
+        String name = prefs.getString("name", null);
 
 
         if (email.equalsIgnoreCase(registeredEmail) && password.equals(registeredPassword)) {
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("isLoggedIn", true);
+            editor.putString("senderName", name); // Save the sender name
             editor.apply();
 
             Intent homeIntent = new Intent(SignInActivity.this, HomeActivity.class);
             homeIntent.putExtra("email", registeredEmail);
+            homeIntent.putExtra("userName", name);
             startActivity(homeIntent);
             finish();
         } else {
             Toast.makeText(this, "Email or password is incorrect", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     public void onNavigateToSignUp(android.view.View view) {
         Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);

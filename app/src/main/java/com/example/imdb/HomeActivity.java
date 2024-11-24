@@ -1,60 +1,105 @@
 package com.example.imdb;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
-import com.example.imdb.databinding.ActivityHomeBinding;
-import androidx.appcompat.app.AlertDialog;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+
+import com.example.imdb.databinding.ActivityHomeBinding;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
-    private String userEmail, userName, userGender;
+    private static final int REQUEST_CODE_NEW_REPORT = 1;
+
     private ActivityHomeBinding binding;
+    private ReportAdapter reportAdapter;
+    private List<Report> reports;
+
+    private String userEmail, userName, userGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(R.layout.activity_home);
+        setContentView(binding.getRoot());
+
+        reports = new ArrayList<>();
+        reportAdapter = new ReportAdapter(reports, this);
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        binding.recyclerView.setAdapter(reportAdapter);
 
         Intent intent = getIntent();
         userEmail = intent.getStringExtra("email");
-        userName = intent.getStringExtra("name");
+        userName = intent.getStringExtra("userName");
         userGender = intent.getStringExtra("gender");
 
-        findViewById(R.id.profile_btn).setOnClickListener(v -> showProfileDialog());
-        findViewById(R.id.logout_logo).setOnClickListener(v -> logoutUser());
+        loadReports();
+
+        binding.profileBtn.setOnClickListener(v -> navigateToProfile());
+        binding.logoutLogo.setOnClickListener(v -> logoutUser());
+        binding.newBtn.setOnClickListener(v -> navigateToReport());
+        binding.categoriesBtn.setOnClickListener(v -> navigateToCategories());
     }
 
-    private void showProfileDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Profile Information")
-                .setMessage("Name: " + userName + "\nEmail: " + userEmail + "\nGender: " + userGender)
-                .setPositiveButton("OK", (dialog, id) -> dialog.dismiss())
-                .create()
-                .show();
-    }
     private void logoutUser() {
-        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("isLoggedIn", false);
-        editor.apply();
-
         Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
 
-    public void onNavigateToCategories(android.view.View view) {
-        Intent intent = new Intent(HomeActivity.this, CategoriesActivity.class);
-        startActivity(intent);
+
+    private void navigateToProfile() {
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String senderName = prefs.getString("senderName", null);
+        if (senderName != null) {
+            Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+            intent.putExtra("userName", senderName);
+            startActivity(intent);
+        }
     }
-    public void onNavigateToReport(android.view.View view) {
+
+    private void navigateToReport() {
         Intent intent = new Intent(HomeActivity.this, ReportActivity.class);
-        startActivity(intent);
+        intent.putExtra("name", userName);
+        startActivityForResult(intent, REQUEST_CODE_NEW_REPORT);
+    }
+
+    private void navigateToCategories() {
+        Intent intent = new Intent(HomeActivity.this, CategoriesActivity.class);
+        startActivityForResult(intent, REQUEST_CODE_NEW_REPORT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_NEW_REPORT && resultCode == RESULT_OK) {
+            loadReports();
+        }
+    }
+
+    private void loadReports() {
+        SharedPreferences prefs = getSharedPreferences("ReportsPrefs", MODE_PRIVATE);
+        String reportsJson = prefs.getString("reports", "[]");
+        Gson gson = new Gson();
+        Type type = new TypeToken<ArrayList<Report>>() {
+        }.getType();
+        reports = gson.fromJson(reportsJson, type);
+
+        if (reports == null) {
+            reports = new ArrayList<>();
+        }
+
+        reportAdapter.updateReports(reports);
     }
 }

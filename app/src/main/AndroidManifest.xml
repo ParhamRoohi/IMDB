@@ -41,5 +41,8 @@
         <activity
             android:name=".ReportActivity"
             android:theme="@style/Theme.IMDB_status_bar.CustomStatusBar" />
+        <activity
+            android:name=".ProfileActivity"
+            android:theme="@style/Theme.IMDB_status_bar.CustomStatusBar" />
     </application>
 </manifest>

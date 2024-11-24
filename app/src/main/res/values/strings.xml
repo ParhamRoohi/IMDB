@@ -2,6 +2,7 @@
     <string name="app_name">IMDB</string>
     <string name="imdb_tv">IMDB</string>
     <string name="categorise_tv">Categorise</string>
+    <string name="add_report_tv">Add Report</string>
     <string name="gender_tv">Gender</string>
     <string name="password_tv">Password</string>
     <string name="email_tv">Email</string>
@@ -25,5 +26,6 @@
     <string name="male_rbtn">Male</string>
     <string name="female_rbtn">Female</string>
     <string name="agree_cb">Agree to Trems</string>
+    <string name="profile_tv">Profile</string>
 
 </resources>
